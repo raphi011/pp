@@ -2,10 +2,10 @@ import java.util.Properties;
 
 public class AsciiImage 
 {
-	int width = 0;
-	int height = 0;
+	private int width = 0;
+	private int height = 0;
 	
-	StringBuffer image;
+	private StringBuffer image;
 	
  public AsciiImage()
  {
@@ -96,6 +96,16 @@ public class AsciiImage
  	 
  	 StringBuffer transposedImage = new StringBuffer();
  	 
+ 	 
+ }
+ 
+ private char getPixel(int x, int y)
+ {
+ 	return image.charAt(y * width + x);	 
+ }
+ 
+ private void setPixel(int x, int y, char c)
+ {
  	 
  }
  
