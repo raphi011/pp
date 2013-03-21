@@ -1,6 +1,6 @@
 import java.util.Properties;
 
-public class AsciiShop 
+public class AsciiImage 
 {
 	int width = 0;
 	int height = 0;
