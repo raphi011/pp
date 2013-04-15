@@ -6,6 +6,7 @@ public class AsciiShop
 	static String flipCommand = "flip-v";
 	static String transposeCommand = "transpose";
 	static String fillCommand = "fill";
+	static String symmetricCommand = "symmetric-h";
 
 	public static void main(String[] args)
 	{
@@ -63,6 +64,8 @@ public class AsciiShop
 			image.flipV();
 		else if (cmd.equals(transposeCommand))
 			image.transpose();
+		else if (cmd.equals(symmetricCommand))
+			image.isSymmetricH();
 		else if (cmd.equals(fillCommand))
 		{
 			int x;
