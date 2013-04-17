@@ -1,8 +1,4 @@
 *.jar
-*.i*
-*.o*
-*.html
 *.class
-*.gif
 .DS_Store
 *~
