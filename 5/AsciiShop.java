@@ -20,10 +20,6 @@ public class AsciiShop
 		try {
 			while (sc.hasNextLine())
 				DoOperation(sc);
-
-			// Ausgabe des Ergebnisses
-			System.out.println(image.toString());
-			System.out.println(image.getWidth() + " " + image.getHeight());
 		}
 		catch (InputMismatchException e) {
 			System.out.println("INPUT MISMATCH");
@@ -31,9 +27,12 @@ public class AsciiShop
 		catch (OperationFailedException e) {
 			System.out.println("OPERATION FAILED");
 		}
+		catch (UnknownCommandException e) {
+			System.out.println("UNKNOWN COMMAND");	
+		}
 	}
 
-	public static void DoOperation(Scanner scanner) throws InputMismatchException, OperationFailedException
+	public static void DoOperation(Scanner scanner) throws InputMismatchException, OperationFailedException, UnknownCommandException
 	{
 		String fillParamString = scanner.nextLine().trim();
 
@@ -53,10 +52,12 @@ public class AsciiShop
 				height = Integer.parseInt(tokens[2]);
 			}
 			catch (NumberFormatException e) {
+				System.out.println("error parsing");
 				throw new InputMismatchException();
 			}
 
 			asciiImage = new AsciiImage(width, height);
+
 		}
 		else if (loadCmd.equals(cmd))
 		{
@@ -66,11 +67,12 @@ public class AsciiShop
 			String eof = tokens[1];
 
 			asciiImage.load(eof);
+			loadImage(scanner);
 		}
 		else if (printCmd.equals(cmd))
 			System.out.println(asciiImage.toString());
 		else if (clearCmd.equals(cmd))
-			asciiImage.toString();
+			asciiImage.clear();
 		else if (transposeCmd.equals(cmd))
 			asciiImage.transpose();
 		else if (replaceCmd.equals(cmd))
@@ -133,15 +135,26 @@ public class AsciiShop
 				throw new InputMismatchException();
 			}
 
-			if (y >= image.getHeight() || y < 0 || x >= image.getWidth() || x < 0)
+			if (y >= asciiImage.getHeight() || y < 0 || x >= asciiImage.getWidth() || x < 0)
 				throw new OperationFailedException();
 
 			asciiImage.fill(x,y,c);
 		}
 		else
-			throw new InputMismatchException();
+			throw new UnknownCommandException();
+	}
+	
+	private static void loadImage(Scanner s) throws InputMismatchException
+	{
+		String nextLine;
+		
+		boolean hasInput = true;
+		
+		do 
+		{
+		 	nextLine = s.nextLine();
+			hasInput = asciiImage.addLine(nextLine);
+		}
+		while (hasInput);			
 	}
 }
-
-class InputMismatchException extends Exception {}
-class OperationFailedException extends Exception {}
