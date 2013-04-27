@@ -21,6 +21,7 @@ public class AsciiShop
 			while (sc.hasNextLine())
 				DoOperation(sc);
 		}
+		// Various error messages ...
 		catch (InputMismatchException e) {
 			System.out.println("INPUT MISMATCH");
 		}
@@ -56,11 +57,17 @@ public class AsciiShop
 				throw new InputMismatchException();
 			}
 
+			if (width < 1 || height < 1)
+				throw new InputMismatchException();
+
 			asciiImage = new AsciiImage(width, height);
 
 		}
 		else if (loadCmd.equals(cmd))
 		{
+			if (asciiImage == null)
+				throw new InputMismatchException();
+
 			if (tokens.length != 2)
 				throw new InputMismatchException();
 
@@ -146,6 +153,7 @@ public class AsciiShop
 	
 	private static void loadImage(Scanner s) throws InputMismatchException
 	{
+		// Parses one line at a time
 		String nextLine;
 		
 		boolean hasInput = true;
@@ -158,3 +166,7 @@ public class AsciiShop
 		while (hasInput);			
 	}
 }
+class InputMismatchException extends Exception {}
+class OperationFailedException extends Exception {}
+class UnknownCommandException extends Exception {}
+

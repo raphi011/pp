@@ -3,6 +3,8 @@ import java.util.Properties;
 public class AsciiImage
 {
 	private String eof;
+
+	// help variable for adding lines
 	private int currentHeight;
 	
 	// [rows][columns]
@@ -61,8 +63,7 @@ public class AsciiImage
 			for (int x = 0; x < getWidth(); x++)
 				imageString += image[y][x];
 
-		//	if (y != getHeight() - 1)
-				imageString += System.getProperty("line.separator");
+		      	imageString += System.getProperty("line.separator");
 		}
 
 		return imageString;
@@ -105,42 +106,35 @@ public class AsciiImage
 		this.eof = eof;
 	}
 	
-	/*
-	1. x und y berechnen
-	2. Feststellen ob die Achsen invertiert sind (sprich |y|>|x|)
-	3. Falls die Achsen vertauscht sind, x0 mit y0, x1 mit y1 und x mit y vertauschen
-	4. Überprüfen ob x1³x0, ansonsten Anfangs und Endpunkt vertauschen
-	5. x mit x0 initialisieren und in einer Schleife bis x1 in 1-Pixel-Schritten iterieren, y mit y0 initialisieren
-	Den Punkt an der Stelle (x,y) oder, wenn die Achsen in Schritt 3 vertauscht wurden, an der Stelle (y,x) zeichnen
-	x um 1 erhöhen
-	y um y/x erhöhen
-	*/
-
 	public void drawLine(int x0, int y0, int x1, int y1, char c)
 	{
-		System.out.println("Drawing line ... ");
-
 		// 1)
 		int dreX = x1 - x0;
 		int dreY = y1 - y0;
 		
 		boolean axisInverted = false;
 		
-		// 2)
-		if (dreY > dreX)
+		// Swaps p1 and p2 if |y1 - y0| > |x1 - x0|
+		if (Math.abs(dreY) > Math.abs(dreX))
 		{
 			// 3)
-			x0 = y0;
-			x1 = y1;
+			int tmp = x0;
 			
-			int tmp = dreX;
+			x0 = y0;
+			y0 = tmp;
+
+			tmp = x1;
+			x1 = y1;
+			y1 = tmp;
+			
+			tmp = dreX;
 			dreX = dreY;
 			dreY = tmp;
 			
 			axisInverted = true;
 		}
 		
-		// 4)
+		// 4) Swaps end with startpoint if x1 < x0
 		if (x1 < x0)
 		{
 			int tmp = x1;
@@ -156,69 +150,59 @@ public class AsciiImage
 		int x = x0;
 		double y = y0;
 		
-		dreX = x1 - x;
-		dreY = y1 - (int)y;
+		dreX = x1 - x0;
+		dreY = y1 - y0;
+		
+		// calculates steady incline
+		double incline = (double)dreY /  (double)dreX;
 
 		while (x <= x1)
 		{
 			// 5.1)
-
-
 			if (axisInverted)
-{
-				System.out.println("y: " + x + "x: " + (int)Math.round(y));
-				
 				setPixel((int)Math.round(y),x,c);
-}			else {
-				System.out.println("x: " + x + "y: " + (int)Math.round(y));
+			else 
 				setPixel(x,(int)Math.round(y),c);
-}
+
 			// 5.2)
 			x++;
 			
 			// 5.3)
-			//dreX = x1 - x;
-			//dreY = y1 - (int)y;
-						
-			y+= (double)dreY / (double)dreX;
+			y+= incline;
 		}		
 	}
 
 	public void replace(char oldChar, char newChar)
 	{
-		for (int i = 0; i < getHeight(); i++)
-			for (int j = 0; j < getWidth(); j++)
+		for (int y = 0; y < getHeight(); y++)
+		{
+			for (int x = 0; x < getWidth(); x++)
 			{
-				if (image[i][j] == oldChar)
-					image[i][j] = newChar;
+				if (image[y][x] == oldChar)
+					image[y][x] = newChar;
 			}
+		}
 	}
 
 	public void fill(int x, int y, char c)
 	{
-		try
-		{
+			//floodfill algorythm
 			char charToReplace = getPixel(x,y);
 
-			// Zeichen ersetzen!
+			// Replace character
 			setPixel(x, y, c);
 
-			//links
+			// left
 			if (x - 1 >= 0 && getPixel(x-1,y) == charToReplace)
 				fill(x - 1, y, c);
-			// oben
+			// top
 			if (y - 1 >= 0 && getPixel(x, y -1) == charToReplace)
 				fill(x, y - 1, c);
-			// rechts
+			// right
 			if (x + 1 < getWidth() && getPixel(x +1, y) == charToReplace)
 				fill(x + 1, y, c);
-			// unten
+			// bottom
 			if (y + 1 < getHeight() && getPixel(x, y+1) == charToReplace)
 				fill(x, y + 1, c);
-		}
-		catch (Exception ex)
-		{
-			System.out.println();
-		}
 	}
 }
