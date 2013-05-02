@@ -1,4 +1,5 @@
 import java.util.Properties;
+import java.util.ArrayList;
 
 public class AsciiImage
 {
@@ -17,6 +18,18 @@ public class AsciiImage
 		currentHeight = 0;
 	}
 
+	public AsciiImage(AsciiImage img)
+	{
+		image = new char[img.getHeight()][img.getWidth()];
+		
+		// copies the image content
+		for (int i = 0; i < img.image.length; i++)
+			System.arraycopy(img.image[i], 0, this.image[i], 0, img.getWidth());
+
+		currentHeight = img.currentHeight;
+		eof = img.eof;
+	}
+
 	public boolean addLine(String line) throws InputMismatchException
 	{
 		if (line.trim().equals(eof))
@@ -28,7 +41,6 @@ public class AsciiImage
 			}
 			else 
 				throw new InputMismatchException();
-			
 		}
 		
 		if (line.length() != getWidth())
@@ -37,11 +49,23 @@ public class AsciiImage
 		for(int i = 0; i < line.length(); i++)
 			image[currentHeight][i] = line.charAt(i);
 		
-		
-		
 		currentHeight++;
 
 		return true;
+	}
+
+	public ArrayList<AsciiPoint> getPointList(char c)
+	{
+		ArrayList<AsciiPoint> pointList = new ArrayList<AsciiPoint>();
+
+		for (int y = 0; y < getHeight(); y++)
+			for (int x = 0; x < getWidth(); x++)
+			{
+				if (getPixel(x,y) == c)
+					pointList.add(new AsciiPoint(x,y));
+			}
+
+		return pointList.size() == 0 ? null : pointList;
 	}
 
 	public int getWidth()
@@ -84,6 +108,91 @@ public class AsciiImage
 		image = transposedImage;
 	}
 
+ 	public AsciiPoint getCentroid(char c)
+	{
+		double x = 0;
+		double y = 0;
+
+		ArrayList<AsciiPoint> pointList = getPointList(c);
+
+		if (pointList == null)
+			return null;
+
+		int pointListCount = pointList.size();
+
+		for (AsciiPoint p : pointList)
+		{
+			x += p.getX();
+			y += p.getY();
+		}
+	
+		// round to int	
+		x = Math.round(x / pointListCount);
+		y = Math.round(y / pointListCount);
+
+		return new AsciiPoint((int)x, (int)y);	
+	}
+
+	public void growRegion(char c)
+	{
+		for (AsciiPoint p :  getPointList(c))
+		{
+			int x = p.getX();
+			int y = p.getY();
+
+			// left
+			if (x - 1 >= 0 && getPixel(x-1,y) == '.')
+				setPixel(x -1, y, c);
+		
+			// top
+			if (y - 1 >= 0 && getPixel(x, y -1) == '.')
+				setPixel(x, y - 1, c);
+			
+			// right
+			if (x + 1 < getWidth() && getPixel(x +1, y) == '.')
+				setPixel(x + 1, y, c);
+			// bottom
+			if (y + 1 < getHeight() && getPixel(x, y+1) == '.')
+				setPixel(x, y + 1, c);
+		}
+	}
+
+	public void straightenRegion(char c)
+	{
+		for (AsciiPoint p : getPointList(c))
+		{
+			int x = p.getX();
+			int y = p.getY();
+
+			int neighbourCount = 0;
+
+			if (x - 1 >= 0 && getPixel(x-1,y) == c)
+				neighbourCount++;	
+
+			if (y - 1 >= 0 && getPixel(x, y -1) == c) 
+				neighbourCount++;	
+			
+			if (x + 1 < getWidth() && getPixel(x +1, y) == c)
+				neighbourCount++;
+
+			if (y + 1 < getHeight() && getPixel(x, y+1) == c)
+				neighbourCount++;
+
+			if (neighbourCount < 2)
+				setPixel(p,'.');
+		}
+	}
+
+	private char getPixel(AsciiPoint p)
+	{
+		return getPixel(p.getX(), p.getY());
+	}
+
+	private void setPixel(AsciiPoint p, char c)
+	{
+		setPixel(p.getX(), p.getY(), c);
+	}
+	
 	private char getPixel(int x, int y)
 	{
 		return image[y][x];
@@ -184,9 +293,9 @@ public class AsciiImage
 		}
 	}
 
+	// Floodfill algorythm
 	public void fill(int x, int y, char c)
 	{
-			//floodfill algorythm
 			char charToReplace = getPixel(x,y);
 
 			// Replace character

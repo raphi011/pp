@@ -9,17 +9,26 @@ public class AsciiShop
 	final static String loadCmd = "load";
 	final static String printCmd = "print";
 	final static String replaceCmd = "replace";
-	final static String createCmd = "create";	
+	final static String createCmd = "create";
+	final static String growCmd = "grow";
+	final static String centroidCmd = "centroid";
+	final static String undoCmd = "undo";
+	final static String straightenCmd = "straighten";	
 
-	private static AsciiImage asciiImage;
+	final static int increaseSize = 3;
+
+	private static AsciiStack asciiStack;
+	private static AsciiImage img;
 
 	public static void main(String[] args)
 	{
 		Scanner sc = new Scanner(System.in);
 
+		asciiStack = new AsciiStack(increaseSize);
+
 		try {
 			while (sc.hasNextLine())
-				DoOperation(sc);
+				doOperation(sc);
 		}
 		// Various error messages ...
 		catch (InputMismatchException e) {
@@ -33,7 +42,15 @@ public class AsciiShop
 		}
 	}
 
-	public static void DoOperation(Scanner scanner) throws InputMismatchException, OperationFailedException, UnknownCommandException
+	// puts the current image onto the stack and replaces it with an identical copy
+	private static void makeImgCopy()
+	{
+		AsciiImage imgCopy = new AsciiImage(img);
+		asciiStack.push(img);
+		img = imgCopy;
+	}
+
+	public static void doOperation(Scanner scanner) throws InputMismatchException, OperationFailedException, UnknownCommandException
 	{
 		String fillParamString = scanner.nextLine().trim();
 
@@ -45,6 +62,9 @@ public class AsciiShop
 
 		if (createCmd.equals(cmd))
 		{
+			if (img != null) 
+				throw new UnknownCommandException();
+
 			int width;
 			int height;
 
@@ -60,12 +80,58 @@ public class AsciiShop
 			if (width < 1 || height < 1)
 				throw new InputMismatchException();
 
-			asciiImage = new AsciiImage(width, height);
+			img = new AsciiImage(width, height);
 
+		}
+		else if (straightenCmd.equals(cmd))
+		{
+			if (tokens.length != 2)
+				throw new InputMismatchException();
+		
+			char straightenChar = tokens[1].charAt(0);
+
+			makeImgCopy();
+
+			img.straightenRegion(straightenChar);
+		}
+		else if (growCmd.equals(cmd))
+		{
+			if (tokens.length != 2)
+				throw new InputMismatchException();
+
+			char growChar = tokens[1].charAt(0);
+			
+			makeImgCopy();
+
+			img.growRegion(growChar);
+		}
+		else if (centroidCmd.equals(cmd))
+		{
+			if (tokens.length != 2)
+				throw new InputMismatchException();
+
+			char centroidChar = tokens[1].charAt(0);
+				
+			AsciiPoint p = img.getCentroid(centroidChar);
+
+			if (p == null)
+				System.out.println("null");
+			else
+				System.out.println(p.toString());
+		}
+		else if (undoCmd.equals(cmd))
+		{
+			if (asciiStack.empty())
+				System.out.println("STACK EMPTY");
+			else
+			{
+				img = asciiStack.pop();
+				System.out.println("STACK USAGE " + asciiStack.size() + "/" + asciiStack.capacity());
+}
 		}
 		else if (loadCmd.equals(cmd))
 		{
-			if (asciiImage == null)
+			if (img == null)
 				throw new InputMismatchException();
 
 			if (tokens.length != 2)
@@ -73,15 +139,25 @@ public class AsciiShop
 
 			String eof = tokens[1];
 
-			asciiImage.load(eof);
+			makeImgCopy();
+
+			img.load(eof);
 			loadImage(scanner);
 		}
 		else if (printCmd.equals(cmd))
-			System.out.println(asciiImage.toString());
+			System.out.println(img.toString());
 		else if (clearCmd.equals(cmd))
-			asciiImage.clear();
+		{	
+			makeImgCopy();
+
+			img.clear();
+		}
 		else if (transposeCmd.equals(cmd))
-			asciiImage.transpose();
+		{
+			makeImgCopy();
+
+			img.transpose();
+		}
 		else if (replaceCmd.equals(cmd))
 		{			
 			if (tokens.length != 3)
@@ -90,7 +166,9 @@ public class AsciiShop
 			char oldChar = tokens[1].charAt(0);
 			char newChar = tokens[2].charAt(0);
 
-			asciiImage.replace(oldChar,newChar);
+			makeImgCopy();
+
+			img.replace(oldChar,newChar);
 		}
 		else if (lineCmd.equals(cmd))
 		{
@@ -118,7 +196,9 @@ public class AsciiShop
 
 			c = tokens[5].charAt(0);
 
-			asciiImage.drawLine(x0,y0,x1,y1,c);
+			makeImgCopy();
+
+			img.drawLine(x0,y0,x1,y1,c);
 		}
 		else if (fillCmd.equals(cmd))
 		{
@@ -142,10 +222,10 @@ public class AsciiShop
 				throw new InputMismatchException();
 			}
 
-			if (y >= asciiImage.getHeight() || y < 0 || x >= asciiImage.getWidth() || x < 0)
+			if (y >= img.getHeight() || y < 0 || x >= img.getWidth() || x < 0)
 				throw new OperationFailedException();
 
-			asciiImage.fill(x,y,c);
+			img.fill(x,y,c);
 		}
 		else
 			throw new UnknownCommandException();
@@ -161,11 +241,12 @@ public class AsciiShop
 		do 
 		{
 		 	nextLine = s.nextLine();
-			hasInput = asciiImage.addLine(nextLine);
+			hasInput = img.addLine(nextLine);
 		}
 		while (hasInput);			
 	}
 }
+
 class InputMismatchException extends Exception {}
 class OperationFailedException extends Exception {}
 class UnknownCommandException extends Exception {}
