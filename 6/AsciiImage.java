@@ -84,9 +84,7 @@ public class AsciiImage
 
 		for (int y = 0; y < getHeight(); y++)
 		{
-			for (int x = 0; x < getWidth(); x++)
-				imageString += image[y][x];
-
+			imageString += new String(image[y]);
 		      	imageString += System.getProperty("line.separator");
 		}
 
