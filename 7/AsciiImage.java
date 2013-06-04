@@ -22,7 +22,7 @@ public class AsciiImage
 		// copies the image content
 		for (int i = 0; i < img.image.length; i++)
 			System.arraycopy(img.image[i], 0, this.image[i], 0, img.getWidth());
-	}
+		}
 
 	public String getCharset()
 	{
@@ -91,7 +91,7 @@ public class AsciiImage
 		return new AsciiPoint((int)x, (int)y);	
 	}
 	
-	private bool coordinatesAreInBounds(int x,int y)
+	private boolean coordinatesAreInBounds(int x,int y)
 	{
 		if (x < 0 || x >= getWidth())
 			return false;
@@ -108,19 +108,14 @@ public class AsciiImage
 
 		return image[y][x];
 	}
+	
 	public char getPixel(AsciiPoint p) throws IndexOutOfBoundsException
 	{
-		if (!coordinatesAreInBounds(x,y))
-			throw new IndexOutOfBoundsException();
-		
 		return getPixel(p.getX(), p.getY());
 	}
 
 	public void setPixel(AsciiPoint p, char c) throws IndexOutOfBoundsException
 	{
-		if (!coordinatesAreInBounds(x,y))
-			throw new IndexOutOfBoundsException();
-		
 		setPixel(p.getX(), p.getY(), c);
 	}
 

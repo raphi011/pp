@@ -15,8 +15,6 @@ public class AsciiShop
 	final static String undoCmd = "undo";
 	final static String straightenCmd = "straighten";	
 
-	final static int increaseSize = 3;
-
 	private static AsciiStack asciiStack;
 	private static AsciiImage img;
 
@@ -24,7 +22,7 @@ public class AsciiShop
 	{
 		Scanner sc = new Scanner(System.in);
 
-		asciiStack = new AsciiStack(increaseSize);
+		asciiStack = new AsciiStack();
 
 		try {
 			while (sc.hasNextLine())

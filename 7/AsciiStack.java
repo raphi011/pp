@@ -1,4 +1,4 @@
-public class AsciiStack
+	public class AsciiStack
 {
 	private int size = 0;
 	private AsciiStackNode head;
