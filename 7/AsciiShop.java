@@ -14,6 +14,7 @@ public class AsciiShop
 	final static String centroidCmd = "centroid";
 	final static String undoCmd = "undo";
 	final static String straightenCmd = "straighten";	
+	final static String filterCmd = "filter";
 
 	private static AsciiStack asciiStack;
 	private static AsciiImage img;
@@ -76,7 +77,7 @@ public class AsciiShop
 				height = Integer.parseInt(tokens[2]);
 			}
 			catch (NumberFormatException e) {
-				System.out.println("error parsing");
+			//	System.out.println("error parsing");
 				throw new InputMismatchException();
 			}
 
@@ -86,6 +87,7 @@ public class AsciiShop
 			String charset = tokens[3];
 
 			img = new ClearOperation().execute(new AsciiImage(width, height, charset));
+		//	System.out.println("create successfull...");
 		}
 		else if (straightenCmd.equals(cmd))
 		{
@@ -104,6 +106,18 @@ public class AsciiShop
 			char growChar = tokens[1].charAt(0);
 		
 			operation = new GrowRegionOperation(growChar);
+		}
+		else if (filterCmd.equals(cmd))
+		{
+			if (tokens.length != 2)
+				throw new InputMismatchException();
+
+			String filterType = tokens[1];
+
+			if (!"median".equals(filterType))
+				throw new InputMismatchException();
+
+			operation = new MedianOperation();
 		}
 		else if (centroidCmd.equals(cmd))
 		{
@@ -225,3 +239,6 @@ public class AsciiShop
 		}
 	}
 }
+
+class UnknownCommandException extends Exception {}
+class InputMismatchException extends Exception {}

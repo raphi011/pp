@@ -10,18 +10,27 @@ public class LoadOperation implements Operation
 	public AsciiImage execute(AsciiImage img) throws OperationException
 	{
 		AsciiImage imgCopy = new AsciiImage(img);
+//	System.out.println("vor invalidchars");	
+//		if (hasInvalidChars(data, img.getCharset()))
+//			throw new OperationException();
 	
 		String[] lines = data.split("\n"); 
-		
-		if (lines.length > imgCopy.getHeight())
-			throw new OperationException();
+//	System.out.println("nach invalidchars");	
 
 		try
 		{
 			for (int y = 0; y<lines.length; y++)
 			{
 				for (int x = 0; x< lines[y].length(); x++)
-					imgCopy.setPixel(x,y, lines[y].charAt(x));
+				{
+					char currentChar = lines[y].charAt(x);
+
+					if (img.getCharset().indexOf(currentChar) < 0)
+						throw new OperationException();
+
+					imgCopy.setPixel(x,y, currentChar);
+
+				}
 			}
 		}
 		catch (IndexOutOfBoundsException ex)
@@ -30,5 +39,17 @@ public class LoadOperation implements Operation
 		}
 
 		return imgCopy;
+	}
+
+	private boolean hasInvalidChars(String data, String invalidChars)
+	{
+		System.out.println(invalidChars.length());
+		
+		data = data.replace("\n", "");
+
+		for (int i = 0; i< invalidChars.length(); i++ )
+			data = data.replace(invalidChars.substring(i,i+1), "");
+
+		return data.trim().length() == 0;
 	}
 }

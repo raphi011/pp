@@ -10,19 +10,19 @@ public class AsciiImage
 
 	public AsciiImage(int width, int height, String charset)
 	{
-		image = new char[height][width];
-		
+		this.image = new char[height][width];
 		this.charset = charset;
 	}
 
 	public AsciiImage(AsciiImage img)
 	{
-		image = new char[img.getHeight()][img.getWidth()];
-		
+		this.image = new char[img.getHeight()][img.getWidth()];
+		this.charset = img.charset;
+
 		// copies the image content
 		for (int i = 0; i < img.image.length; i++)
 			System.arraycopy(img.image[i], 0, this.image[i], 0, img.getWidth());
-		}
+	}
 
 	public String getCharset()
 	{
@@ -125,5 +125,31 @@ public class AsciiImage
 			throw new IndexOutOfBoundsException();
 		
 		image[y][x] = c;
+	}
+	
+	public ArrayList<AsciiPoint> getNeighborList(int x, int y)
+	{
+		ArrayList<AsciiPoint> list = new ArrayList<AsciiPoint>();
+		int currentX, currentY;
+
+		for (int dx = -1; dx < 2; dx++)
+		{
+			currentX = x + dx;	
+			
+			if (currentX < 0 || currentX >= getWidth())
+				continue;
+			
+			for (int dy = -1; dy < 2; dy++)
+			{
+				currentY = y + dy;
+
+				if (currentY  < 0 || currentY >= getHeight())
+					continue;
+				
+				list.add(new AsciiPoint(currentX, currentY));
+			}
+		}
+		
+		return list;
 	}
 }
