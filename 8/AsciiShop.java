@@ -15,6 +15,7 @@ public class AsciiShop
 	final static String undoCmd = "undo";
 	final static String straightenCmd = "straighten";	
 	final static String filterCmd = "filter";
+	final static String binarayCmd = "binary";
 
 	private static AsciiStack asciiStack;
 	private static AsciiImage img;
