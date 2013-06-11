@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class AsciiShop
 {
@@ -15,7 +15,10 @@ public class AsciiShop
 	final static String undoCmd = "undo";
 	final static String straightenCmd = "straighten";	
 	final static String filterCmd = "filter";
-	final static String binarayCmd = "binary";
+	final static String binaryCmd = "binary";
+	final static String histogramCmd = "histogram";
+
+	private static HashMap<String, Factory> factories = new HashMap<String, Factory>();	
 
 	private static AsciiStack asciiStack;
 	private static AsciiImage img;
@@ -25,13 +28,18 @@ public class AsciiShop
 		Scanner sc = new Scanner(System.in);
 
 		asciiStack = new AsciiStack();
+		
+		createFactories();
 
 		try {
-			while (sc.hasNextLine())
+			while (sc.hasNext())
 				doOperation(sc);
 		}
 		// Various error messages ...
 		catch (InputMismatchException e) {
+			System.out.println("INPUT MISMATCH");
+		}
+		catch (FactoryException e) {
 			System.out.println("INPUT MISMATCH");
 		}
 		catch (OperationException e) {
@@ -42,6 +50,20 @@ public class AsciiShop
 		}
 	}
 
+	private static void createFactories()
+	{
+		factories.put(transposeCmd, new TransposeFactory());
+		factories.put(fillCmd, new FillFactory());
+		factories.put(clearCmd, new ClearFactory());
+		factories.put(lineCmd, new LineFactory());
+		factories.put(loadCmd, new LoadFactory());
+		factories.put(replaceCmd, new ReplaceFactory());
+		factories.put(growCmd, new GrowRegionFactory());
+		factories.put(straightenCmd, new StraightenRegionFactory());
+		factories.put(filterCmd, new FilterFactory());
+		factories.put(binaryCmd, new BinaryFactory());
+	}
+
 	// puts the current image onto the stack and replaces it with an identical copy
 	private static void makeImgCopy()
 	{
@@ -50,90 +72,46 @@ public class AsciiShop
 		img = imgCopy;
 	}
 
-	public static void doOperation(Scanner scanner) throws InputMismatchException, OperationException, UnknownCommandException
+	public static void doOperation(Scanner scanner) throws InputMismatchException, OperationException, UnknownCommandException, FactoryException
 	{
 		Operation operation = null;
 
-		String fillParamString = scanner.nextLine().trim();
-
-		if (fillParamString.length() == 0)
-			return;
-
-		String[] tokens = fillParamString.split(" ");
-		String cmd = tokens[0];
-
+		String cmd = scanner.next();
+		
 		if (createCmd.equals(cmd))
 		{
-			if (tokens.length != 4)
-				throw new InputMismatchException();
-
 			if (img != null) 
 				throw new UnknownCommandException();
 
 			int width;
 			int height;
+			String charset;
 
 			try {
-				width = Integer.parseInt(tokens[1]);
-				height = Integer.parseInt(tokens[2]);
+				width = scanner.nextInt();
+				height = scanner.nextInt();
+
+				charset = scanner.next();
 			}
-			catch (NumberFormatException e) {
-			//	System.out.println("error parsing");
+			catch (NoSuchElementException e) {
 				throw new InputMismatchException();
 			}
 
 			if (width < 1 || height < 1)
 				throw new InputMismatchException();
 			
-			String charset = tokens[3];
-
 			img = new ClearOperation().execute(new AsciiImage(width, height, charset));
-		//	System.out.println("create successfull...");
+		
+		
 		}
+		else if (binaryCmd.equals(cmd))
+			operation = factories.get(binaryCmd).create(scanner);
 		else if (straightenCmd.equals(cmd))
-		{
-			if (tokens.length != 2)
-				throw new InputMismatchException();
-		
-			char straightenChar = tokens[1].charAt(0);
-			
-			operation = new StraightenRegionOperation(straightenChar);
-		}
+			operation = factories.get(straightenCmd).create(scanner);
 		else if (growCmd.equals(cmd))
-		{
-			if (tokens.length != 2)
-				throw new InputMismatchException();
-
-			char growChar = tokens[1].charAt(0);
-		
-			operation = new GrowRegionOperation(growChar);
-		}
+			operation = factories.get(growCmd).create(scanner);
 		else if (filterCmd.equals(cmd))
-		{
-			if (tokens.length != 2)
-				throw new InputMismatchException();
-
-			String filterType = tokens[1];
-
-			if (!"median".equals(filterType))
-				throw new InputMismatchException();
-
-			operation = new MedianOperation();
-		}
-		else if (centroidCmd.equals(cmd))
-		{
-			if (tokens.length != 2)
-				throw new InputMismatchException();
-
-			char centroidChar = tokens[1].charAt(0);
-				
-			AsciiPoint p = img.getCentroid(centroidChar);
-
-			if (p == null)
-				System.out.println("null");
-			else
-				System.out.println(p.toString());
-		}
+			operation = factories.get(filterCmd).create(scanner);
 		else if (undoCmd.equals(cmd))
 		{
 			if (asciiStack.empty())
@@ -143,93 +121,24 @@ public class AsciiShop
 		}
 		else if (loadCmd.equals(cmd))
 		{
-			if (tokens.length != 2)
-				throw new InputMismatchException();
-			
-			if (img == null)
-				throw new InputMismatchException();
-			
-			boolean hasInput = true;
-			String eof = tokens[1];
-			int currentHeight = 0;
-			String input = "";
+			if (img == null) throw new InputMismatchException();
 
-			do 
-			{
-				if (!scanner.hasNextLine())
-					throw new InputMismatchException();
-
-			 	String nextLine = scanner.nextLine();
-				
-				if (nextLine.trim().equals(eof))
-					hasInput = false;
-		    		else
-				{
-		        		input += nextLine + "\n";
-					currentHeight++;
-				}
-			}
-			while (hasInput);			
-
-			operation = new LoadOperation(input);
+			operation = factories.get(loadCmd).create(scanner);
 		}
 		else if (printCmd.equals(cmd))
 			System.out.println(img.toString());
 		else if (clearCmd.equals(cmd))
-			operation = new ClearOperation();
+			operation = factories.get(clearCmd).create(scanner); 
 		else if (transposeCmd.equals(cmd))
-			operation = new TransposeOperation();
+			operation = factories.get(transposeCmd).create(scanner);
 		else if (replaceCmd.equals(cmd))
-		{			
-			if (tokens.length != 3)
-				throw new InputMismatchException();
-
-			char oldChar = tokens[1].charAt(0);
-			char newChar = tokens[2].charAt(0);
-			
-			operation = new ReplaceOperation(oldChar, newChar);
-		}
+			operation = factories.get(replaceCmd).create(scanner);	
 		else if (lineCmd.equals(cmd))
-		{
-			if (tokens.length != 6)
-				throw new InputMismatchException();
-
-			if (tokens[5].length() != 1)
-				throw new InputMismatchException();
-
-			try {
-				int x0 = Integer.parseInt(tokens[1]);
-				int y0 = Integer.parseInt(tokens[2]);
-				int x1 = Integer.parseInt(tokens[3]);
-				int y1 = Integer.parseInt(tokens[4]);
-			
-				char c = tokens[5].charAt(0);
-			
-				operation = new LineOperation(x0,y0,x1,y1,c);
-			}
-			catch (NumberFormatException e) {
-				throw new InputMismatchException();
-			}
-		}
+			operation = factories.get(lineCmd).create(scanner);
 		else if (fillCmd.equals(cmd))
-		{
-			if (tokens.length != 4)
-				throw new InputMismatchException();
-
-			if (tokens[3].length() != 1)
-				throw new InputMismatchException();
-			
-			try {
-				int x = Integer.parseInt(tokens[1]);
-				int y = Integer.parseInt(tokens[2]);
-				char c = tokens[3].charAt(0);
-		
-				operation = new FillOperation(x,y,c);
-			}
-			catch (NumberFormatException e) {
-				throw new InputMismatchException();
-			}
-		}
+			operation = factories.get(fillCmd).create(scanner);
+		else if (histogramCmd.equals(cmd))
+			System.out.println(Histogram.getHistogram(img).toString()); 
 		else
 			throw new UnknownCommandException();
 	

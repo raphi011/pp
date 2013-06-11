@@ -104,7 +104,7 @@ public class AsciiImage
 	public char getPixel(int x, int y) throws IndexOutOfBoundsException
 	{
 		if (!coordinatesAreInBounds(x,y))
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("x: " + x + " y: " + y);
 
 		return image[y][x];
 	}
@@ -122,7 +122,7 @@ public class AsciiImage
 	public void setPixel(int x, int y, char c) throws IndexOutOfBoundsException
 	{
 		if (!coordinatesAreInBounds(x,y))
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("x: " + x + " y: " + y);
 		
 		image[y][x] = c;
 	}

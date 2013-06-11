@@ -10,13 +10,9 @@ public class LoadOperation implements Operation
 	public AsciiImage execute(AsciiImage img) throws OperationException
 	{
 		AsciiImage imgCopy = new AsciiImage(img);
-//	System.out.println("vor invalidchars");	
-//		if (hasInvalidChars(data, img.getCharset()))
-//			throw new OperationException();
 	
 		String[] lines = data.split("\n"); 
-//	System.out.println("nach invalidchars");	
-
+	
 		try
 		{
 			for (int y = 0; y<lines.length; y++)
@@ -26,18 +22,17 @@ public class LoadOperation implements Operation
 					char currentChar = lines[y].charAt(x);
 
 					if (img.getCharset().indexOf(currentChar) < 0)
-						throw new OperationException();
+						throw new OperationException("zeichen nicht vorhanden");
 
 					imgCopy.setPixel(x,y, currentChar);
 
 				}
 			}
 		}
-		catch (IndexOutOfBoundsException ex)
-		{
+		catch (IndexOutOfBoundsException ex) {
 			throw new OperationException();
 		}
-
+		
 		return imgCopy;
 	}
 
