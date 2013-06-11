@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>PP - 2. Test</title>
+	
+	
+	<script type="text/javascript" src="res/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="res/jquery.scrollTo-min.js"></script>
+
+	<script type="text/javascript">
+	<!--
+
+	-->
+	</script>
+	
+	
+	<style type="text/css">
+	<!--
+	
+	html,body {
+		margin : 0px;
+		padding-top : 0px;
+		padding-left : 0px;
+		padding-right : 0px;
+		padding-bottom : 0px;
+		background-color : #FFFFFF;
+		font-family : sans-serif;
+		text-align : center;
+		font-size:15px;
+		line-height: 1.3em;
+		}
+		
+	div#container {
+		max-width : 900px;
+		margin-right : auto;
+		margin-left : auto;
+		margin-top: 0px;
+		padding : 0px;
+		text-align : left;
+		position: relative;
+		background-color: #EEEEEE;
+		}
+		
+	div#index {
+		width: 146px;
+		position : fixed;
+		background-color: #FFFFFF;
+		border: 2px solid #555555;
+		-moz-border-radius:20px;
+		-khtml-border-radius:20px;
+		min-height: 100px;
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-bottom: 20px;
+		padding-top: 70px;
+		margin-left: 10px;
+		top:0px;
+		}
+		
+	div#content {
+		background-color: white;
+		border: 2px solid #555555;
+		-moz-border-radius:20px;
+		-khtml-border-radius:20px;
+		margin-left: 10px;
+		margin-right: 10px;
+		padding-left: 40px;
+		padding-right: 40px;
+		padding-bottom: 40px;
+		padding-top: 70px;
+		margin-bottom: 15px;
+		}
+		
+	div#test {
+		width: 220px;
+		padding-top: 20px;
+		padding-bottom: 10px;
+		padding-left: 32px;
+		float: left;
+		}
+		
+	div#title {
+		width: 680px;
+		margin-top: 10px;
+		padding-bottom: 10px;
+		font-size: 30px;
+		line-height: 30px;
+		font-weight: bold;
+		}
+	
+	
+	div#header {
+		position : fixed;
+		background-image: url('res/header_gradient.png');
+		background-repeat: repeat-x;
+		height: 80px;
+		width: 900px;
+		top: 0px;
+		}
+	
+	h2{
+		margin-top: 40px;
+	}
+	
+	code {
+		line-height: 1.3em;
+		font-size: 15px !important;
+		}
+		
+	pre {
+		padding: 1em;
+		border: 1px dashed #2f6fab;
+		color: black;
+		background-color: #f9f9f9;
+		line-height: 1.1em;
+		}
+		
+	pre.iosample{
+		font-size:12px;
+	}
+	
+	p.index{
+		margin-top:0px;
+		margin-bottom:10px;
+	}
+	
+	a{
+		text-decoration: none;
+		color: blue;
+	}
+	
+	p.index a{
+		color: black;
+	}
+	
+	a:hover{
+		text-decoration: underline;
+	}
+	
+	p.iodescription{
+		font-size:10px !important;
+	}
+	
+	p.info{
+		font-style: italic;
+	}
+	
+	img.tex{
+		max-width: 580px;
+		margin-left: 10px;
+	}
+	
+	table{
+		border-collapse: collapse;
+	}
+	
+	td{
+		border: 1px solid black;
+		padding: 5px;
+	}
+	
+	//-->
+	</style>
+	
+		
+</head>
+<body>
+	
+<div id="container">
+
+	
+		
+	<div style="display: table; width: 100%;">
+		<div style="display:table-row;">
+				
+			<div style="display: table-cell; width: 200px;">
+				
+				<div id="index">
+					<p class="index"><a onClick="$.scrollTo('#Aufgabenstellung', {offset:{left:0, top:-75}});return false;" href="#Aufgabenstellung">Aufgabenstellung</a></p>
+					<p class="index"><a onClick="$.scrollTo('#Vorgehensweise', {offset:{left:0, top:-75}});return false;" href="#Vorgehensweise">Vorgehensweise</a></p>
+					<p class="index"><a onClick="$.scrollTo('#Klassen_und_Methoden', {offset:{left:0, top:-75}});return false;" href="#Klassen_und_Methoden">Klassen und Methoden</a></p>												<!--<p class="index"><a onClick="$.scrollTo('#Hinweise', {offset:{left:0, top:-75}});return false;" href="#Hinweise">Hinweise</a></p>-->
+					<p class="index"><a onClick="$.scrollTo('#Testfragen', {offset:{left:0, top:-75}});return false;" href="#Testfragen">Testfragen</a></p>
+					<p class="index"><a onClick="$.scrollTo('#Testf\\.C3\\.A4lle', {offset:{left:0, top:-75}});return false;" href="#Testf.C3.A4lle">Testfälle</a></p>
+				</div>
+				<div id="header">
+				
+					<!-- UPDATE -->
+					<div id="test">PP, 2. Test</div>
+					<div id="title">MelodySequencer</div>
+				
+				</div>
+				
+			</div>
+			<div style="display: table-cell;">
+			
+				<div id="content"> 
+
+<p class="info">Implementieren Sie alle Aufgaben in den dafür vorgesehenen Dateien im Ordner "impl". 
+</p>
+<ul>
+<li>Bitte lesen Sie die Angabe <b>komplett</b> durch, bevor Sie mit der Umsetzung beginnen.</li>
+<li>Halten Sie sich genau an die Angabe und geben Sie nur die geforderten Daten aus.</li>
+<li>Haben Sie <b>Schwierigkeiten</b> bei der Umsetzung einer der Teilaufgaben, <b>versuchen Sie andere Teile zuerst umzusetzen</b> und wenden Sie sich zuletzt nochmal der ungelösten Teilaufgabe zu. Sie erhalten auch Punkte für nicht vollständig implementierte Teilaufgaben</li>
+</ul>
+<hr style="margin-bottom:35px;"/>
+<!-- START INSERT -->
+
+<p>Der <code>MelodySequencer</code> erzeugt Melodien, die aus mehreren Noten bestehen. Melodien können transponiert werden oder auch ein Ausschnitt der Melodie kopiert werden. Mehrere Melodien können in einem Songbook gesammelt werden.
+</p>
+<h2> <span class="mw-headline" id="Aufgabenstellung"> Aufgabenstellung </span></h2>
+<p>Im Rahmen dieser Aufgabe entwicklen Sie einen einfachen <code>MelodySequencer</code>. Kleinster Bestandteil sind Noten (repräsentiert durch die Klasse <code>Note</code>). Jede Note besitzt eine bestimmte Länge und eine bestimmte Tonhöhe. Insgesamt gibt es sieben verschiedene Tonhöhen, die nach den sogenannten Solimisationssilben benannt sind: <i>do - re - mi - fa - sol - la - si</i>. Mehrere Noten zusammengesetzt ergeben eine Melodie (Klasse <code>Melody</code>). 
+</p><p>Noten und gesamte Melodien können transponiert werden: Transponieren bezeichnet den Prozess, in dem Noten in ihrer Tonhöhe um einen angegebenen Wert erhöht oder verringert werden. Außerdem kann aus einer Melodie ein Teil von aufeinandefolgenden Noten kopiert werden, welcher infolge selbst zu einer neuen Melodie wird. Um mehrere Melodien zu speichern, entwicklen Sie ein Notenbuch (Klasse <code>SongBook</code>), das mehrere durch Titel gekennzeichnete Melodien enthält. 
+</p>
+<h3> <span class="mw-headline" id="Nicht-funktionale_Anforderungen"> Nicht-funktionale Anforderungen </span></h3>
+<p>Nutzen Sie wenn möglich immer bestehenden Code und vermeiden Sie so doppelte Codestücke. Sie können bei Bedarf auch zusätzliche Methoden einführen. Dies sollten Sie jedoch nur dann machen, wenn es notwendig ist oder im Rahmen von Codewiederverwendung Sinn macht. Achten Sie bei Ihren Klassen auf korrekte Datenkapselung, also insbesondere auf die richtigen (Sichtbarkeits-)Modifikatoren bei Methoden und Datenfeldern.
+</p>
+<h2> <span class="mw-headline" id="Vorgehensweise"> Vorgehensweise </span></h2>
+<h3> <span class="mw-headline" id="Implementierungsreihenfolge"> Implementierungsreihenfolge </span></h3>
+<p>Folgende Vorgehensweise ist bei der Umsetzung der Aufgabe empfehlenswert:
+</p>
+<ul><li> Beginnen Sie mit der Implementierung der Klasse <code>Note</code>. Hierbei sind besonders der Konstruktor mit zwei Parametern sowie die <code>getBeats()</code> und die <code>toString()</code>-Methode relevant. Nutzen Sie den vorgefertigten Testfall 1 um diese grundlegende Funktionalität zu testen. 
+</li><li> Beginnen Sie im nächsten Schritt die Klasse <code>Melody</code> zu implementieren. Hierbei sollten Sie wiederum mit dem Konstruktor und der <code>toString()</code>-Methode beginnen. Weiters sollten Sie die <code>addNote()</code>-Methode implementieren. Der Testfall 2 überprüft genau diese Funktionalität. 
+</li></ul>
+<p>Haben Sie die Schritte 1 und 2 umgesetzt, können Sie nun die weiteren Teilaufgaben umsetzen. Kompilieren Sie früh und oft und versuchen Sie Fehler sofort zu beheben. Testen Sie nach jedem Kompilieren Ihre Implementierung. Sie finden zu jeder Teilaufgabe einen entsprechenden Testfall. Fügen Sie eigenen Testcode in der <code>testing</code>-Methode (Klasse <code>MelodySequencer</code>) ein um so weitere Fälle (die vielleicht nicht von den bestehenden Testfällen abgedeckt werden) zu überprüfen. Ihre kommentierten Testfälle in dieser Methode sind Teil der Beurteilung.
+</p>
+<h3> <span class="mw-headline" id="Testen"> Testen </span></h3>
+<p>Es ist im Rahmen des Tests nicht erforderlich selbst Eingaben vom User zu verarbeiten. Erzeugen Sie statt dessen zu Testzwecken in der Methode <code>testing()</code> Objekte der von Ihnen implementierten Klassen und rufen Sie die verschiedenen Methoden auf. Zur Unterstützung finden Sie bereits fertige Testfälle in der Klasse <code>MelodySequencer</code>
+</p><p>Die von Ihnen zu lösenden Aufgaben umfassen die Implementierung der drei unten spezifizierten Klassen, dem Umsetzen und Kommentieren eines eigenen Testfalls und der Beantwortung der Theoriefragen.
+</p>
+<h2> <span class="mw-headline" id="Klassen_und_Methoden"> Klassen und Methoden </span></h2>
+<p><dl><dt><code style='font-weight:bold; font-size:13px;'>MelodySequencer</code></dt><dd>
+Diese Klasse ist ausführbar und beinhaltet daher die <code>main</code>-Methode.
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public static void testing()</code></dt><dd>
+Testen Sie in dieser Methode die Implementierung Ihres Programmes durch Objekt-Instanzierungen und Methodenaufrufe. Erstellen Sie zuletzt einen sinnvollen Testfall und beschreiben Sie in einem Kommentar, wieso Sie diesen Testfall gewählt haben und was Sie damit überprüfen. Geben Sie Ausgaben (Rückgaben von Methoden, etc) hier auf <code>System.out</code> aus. 
+
+</dd></dl>
+</p><p>Die weiteren Methoden in der Klasse <code>MelodySequencer</code> <b>sollen nicht verändert werden</b>. Diese Methoden dienen dem Ausführen der vorgefertigten Testfälle und werden nicht beurteilt. Nutzen Sie diese Testfälle um Fehler in Ihrem Programm zu entdecken und auch als Anregungen für eigenen Testfälle. Weitere Informationen zum Testen finden Sie unter dem Punkt <a href="#Vorgehensweise">Vorgehensweise</a>.
+</p><p></dd></dl>
+</p><p>Die folgenden Klassen und Methoden sind vollständig zu implementieren. Falls nicht anders angegeben, können Sie davon ausgehen, dass die den Methoden bei einem Aufruf übergebenen Werte gültig sind (daher beispielsweise keine <code>IndexOutOfBoundsException</code> verursachen). Sie müssen die Gültigkeit daher nicht überprüfen. 
+</p><p><dl><dt><code style='font-weight:bold; font-size:13px;'>Note</code></dt><dd>
+Diese Klasse repräsentiert eine Note. Eine Note ist der kleinste Bestandteil einer Melodie und ist charakterisiert durch Höhe und Länge. Die Notenlänge wird in Schlägen angegeben. Es gibt insgesamt 7 Noten. In aufsteigender Reihenfolge: <i>do - re - mi - fa - sol - la - si</i>. Die Notennamen haben numerische Entsprechungen.
+</p>
+<table class="wikitable">
+
+<tr>
+<td style="text-align:center"> do     </td><td style="text-align:center"> re   </td><td style="text-align:center"> mi </td><td style="text-align:center"> fa </td><td style="text-align:center"> sol </td><td style="text-align:center"> la </td><td style="text-align:center"> si
+</td></tr>
+<tr>
+<td style="text-align:center"> <code>0</code>    </td><td style="text-align:center"> <code>1</code> </td><td style="text-align:center"> <code>2</code> </td><td style="text-align:center"> <code>3</code> </td><td style="text-align:center"> <code>4</code> </td><td style="text-align:center"> <code>5</code> </td><td style="text-align:center"> <code>6</code>
+</td></tr></table>
+<p>Speichern Sie die Notennamen in einer geeigneten Datenstruktur und stellen Sie sicher, dass Sie über den numerischen Index auf den Notennamen zugreifen können. Die Namen sollen nicht veränderlich sein und sind außerdem für alle Instanzen der Klasse <code>Note</code> gleich: Wählen Sie geeignete Modifier, um diese zwei Forderungen zu erfüllen. 
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public Note(int noteIndex, int beats)</code></dt><dd>
+erzeugt eine neue Instanz von <code>Note</code>. <code>beats</code> gibt die Länge der Note an. Die Höhe der Note wird als numerischer Wert angegeben (<code>noteIndex</code>). Speichern Sie den Notennamen nicht als <code>String</code>, sondern behalten Sie ihn als numerischen Wert. 
+
+
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public Note(Note note)</code></dt><dd>
+ist ein Kopierkonstruktor und gibt eine Kopie der übergebene Instanz von <code>Note</code> zurück.
+
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public int getBeats()</code></dt><dd>
+gibt die Notenlänge in Schlägen zurück.
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public void transpose(int steps)</code></dt><dd>
+transponiert die Note um den angegebenen Wert nach oben oder nach unten. Ist die gespeicherte Note beispielsweise <i>do</i>, so lauten diese nach Aufruf der Methode mit <code>steps=3</code>  <i>fa</i>. Dabei liegt ein zyklischer Abschluss vor: Die sieben Noten lauten <i>do - re - mi - fa - sol - la - si</i>. Auf die letzte Note <i>si</i> folgt wieder <i>do</i>. 
+
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public String toString()</code></dt><dd>
+gibt den Namen der Note gefolgt von einem Leerzeichen und deren Länge in Schlägen zurück.
+</p>
+<pre>
+do 1
+</pre>
+<p>
+</dd></dl>
+</p><p></dd></dl>
+</p><p><dl><dt><code style='font-weight:bold; font-size:13px;'>Melody</code></dt><dd>
+Diese Klasse repräsentiert eine Melodie, die aus mehreren Noten besteht. Die Noten werden in geeigneter Form gespeichert. Verschiedene Methoden ermöglichen das Hinzufügen von Noten, das Kopieren von Notenfolgen und das Transponieren der Melodie. Diese Klasse liest weder direkt von <code>System.in</code> ein, noch gibt sie direkt auf <code>System.out</code> aus.
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public Melody(int bpm)</code></dt><dd>
+erzeugt eine neue Instanz von <code>Melody</code> und speichert das übergebene Tempo (<code>bpm</code>, Schläge pro Minute).
+
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public void addNote(Note note)</code></dt><dd>
+fügt am Ende der Melodie die übergebene Note hinzu.
+
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public Melody copy(int beginIndex, int endIndex)</code></dt><dd>
+kopiert eine Folge von Noten und gibt diese als neue Melodie (<code>Melody</code>) zurück. Die neue Melodie hat dabei das gleiche Tempo, die kopierten Noten sollen echte Kopien der ursprünglichen Noten sein. Die neue Melodie beinhaltet die Noten zwischen inklusive <code>beginIndex</code> und exklusive <code>endIndex</code>, hat also die Länge <code>endIndex - beginIndex</code>. Besteht die gespeicherte Melodie beispielsweise aus den Tönen <i>do - re - mi - fa - sol</i>, so lautet die neue Melodie bei Aufruf der Methode mit den Parametern <code>beginIndex=1</code> und <code>endIndex=4</code> <i>re - mi - fa</i> und hat die Länge 3. 
+
+
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public Melody copy(int beginIndex)</code></dt><dd>
+verhält sich wie <code>public Melody copy(int beginIndex, int endIndex)</code>, erwartet jedoch nur den Parameter <code>beginIndex</code> und gibt eine neue Melodie bestehend aus den Noten von inklusive <code>beginIndex</code> bis zum Ende der Melodie zurück. 
+
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public void setBPM(int bpm)</code></dt><dd>
+setzt das Tempo der Melodie auf den übergebenen Wert (<code>bpm</code>, Schläge pro Minute). 
+
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public void transpose(int steps)</code></dt><dd>
+transponiert alle Noten der Melodie um den gleichen Wert nach oben oder nach unten. Besteht die Melodie beispielsweise aus den Noten <i>do - mi - re</i>, so lauten diese nach Aufruf der Methode mit <code>steps=3</code>  <i>fa - la - sol</i>. Dabei liegt ein zyklischer Abschluss vor: Die sieben Noten lauten <i>do - re - mi - fa - sol - la - si</i>. Auf die letzte Note <i>si</i> folgt wieder <i>do</i>. 
+
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public String toString()</code></dt><dd>
+gibt die Töne der Melodie in der Form Notenname gefolgt von einem Leerzeichen und der Notenlänge (in Schläge pro Minute) zurück. Zwischen zwei Noten steht jeweils ein Leerzeichen, alle Noten stehen in der gleichen Zeile. In einer neuen Zeile wird die Dauer der Melodie in Sekunden ausgegeben. Ist die gespeicherte Melodie beispielsweise <i>do 1 re 1 mi 2 fa 4</i>, ist die Gesamtdauer 8 Schläge. Ist das Tempo der Melodie 80 Schläge pro Minute, so beträgt die Länge 6 Sekunden. 
+</p>
+<pre>
+do 1 re 1 mi 2 fa 4
+6.0 seconds
+</pre>
+<p>
+</dd></dl>
+</p><p></dd></dl>
+</p><p><dl><dt><code style='font-weight:bold; font-size:13px;'>SongBook</code></dt><dd>
+Diese Klasse repräsentiert ein Notenbuch. Ein Notenbuch enthält mehrere Melodien und speichert diese in entsprechender Form. Sie stellt Methoden zur Verfügung um Melodien hinzuzufügen oder um auf gespeicherte Melodien zuzugreifen. Diese Klasse liest weder direkt von <code>System.in</code> ein, noch gibt sie direkt auf <code>System.out</code> aus.
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public SongBook()</code></dt><dd>
+erzeugt eine neue Instanz von <code>SongBook</code>.
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public boolean addMelody(String title, Melody melody)</code></dt><dd>
+speichert im <code>SongBook</code> unter dem angegebenen Titel eine Melodie (<code>Melody</code>) und gibt <code>true</code> zurück. Gibt es jedoch im <code>SongBook</code> unter diesem Namen bereits eine Melodie, so wird die übergebene Melodie nicht hinzugefügt, die Methode gibt <code>false</code> zurück.
+
+
+
+</dd></dl>
+</p><p><dl><dt><code style='font-weight:normal; font-size:13px;'>public Melody getMelody(String title)</code></dt><dd>
+gibt die unter dem angegeben Titel gespeicherte Melodie zurück. Existiert keine Melodie unter diesem Titel, so wird <code>null</code> zurückgegeben.
+
+
+</dd></dl>
+</p><p></dd></dl>
+</p>
+<h2> <span class="mw-headline" id="Testfragen"> Testfragen </span></h2>
+<ul><li> Zum Speichern der Noten in Melody benötigen Sie eine Datenstruktur. Aus welchen Gründen haben Sie sich für diese und für keine andere entschieden? 
+</li><li> Beschreiben Sie die Funktion eines Kopierkonstruktors und erklären Sie kurz den Einsatz im Kontext des Beispiels. 
+</li><li> weitere Theoriefragen
+</li></ul>
+<h2> <span class="mw-headline" id="Testf.C3.A4lle"> Testfälle </span></h2>
+<p>Um die einzelnen Testfälle aufzurufen, nutzen Sie 
+</p>
+<ul><li> <b><code>java MelodySequencer</code></b> um die <code>testing</code>-Methode aufzurufen
+</li><li> <b><code>java MelodySequencer [number]</code></b> um die <code>testCases</code>-Methode und somit den entsprechenden Testfall aufzurufen
+</li></ul>
+<p>Sie finden die geforderte Ausgaben auch in der Beschreibung der Testfälle in der Klasse <code>MelodySequencer</code>.
+</p><p><br />
+</p>
+<div style="display: table; width: 100%; margin-bottom: 15px;">
+	<div style="display:table-row;">
+		<div style="vertical-align: middle; text-align: center; width:52px; display: table-cell; border: 1px dashed #2F6FAB; background-color: #F9F9F9;">
+			<p style="margin: 0px; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); font-weight: bold; font-size: 90%;">spec.$1</p>
+		</div>
+		<div style="display: table-cell; padding-left:5px;">
+			<div style="border: 1px dashed #2F6FAB;">	
+				<div style="display: table; width: 100%; padding: 0px; height: 50px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); margin: 0px; text-align: center;">JAVA</p>
+						</div>
+						<pre class="iosample" style="display: table-cell; border: none;">Note n1 = new Note(0, 2);
+System.out.println(n1.getBeats());
+System.out.println(n1);</pre>
+					</div>
+				</div>
+			</div>
+			<div style="border: 1px dashed #2F6FAB; margin-top: 5px;">	
+				<div style="display: table; width: 100%; padding: 0px; height: 50px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); margin: 0px; text-align: center;">OUTPUT</p>
+						</div>
+						<pre class="iosample" style="display: table-cell; border: none;">2
+do 2</pre>
+					</div>
+				</div>
+			</div>
+			<div style="border: 1px dashed #2F6FAB; margin-top: 5px;">	
+				<div style="display: table; width: 100%; padding: 0px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; margin: 0px; text-align: center; font-weight: bold;">?</p>
+						</div>
+						<div class="ioinfo" style="display: table-cell; border: none; padding:3px; padding-left:8px; font-style: italic;">Überprüft die korrekte Basisimplementierung der Klasse Note.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: table; width: 100%; margin-bottom: 15px;">
+	<div style="display:table-row;">
+		<div style="vertical-align: middle; text-align: center; width:52px; display: table-cell; border: 1px dashed #2F6FAB; background-color: #F9F9F9;">
+			<p style="margin: 0px; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); font-weight: bold; font-size: 90%;">spec.$2</p>
+		</div>
+		<div style="display: table-cell; padding-left:5px;">
+			<div style="border: 1px dashed #2F6FAB;">	
+				<div style="display: table; width: 100%; padding: 0px; height: 50px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); margin: 0px; text-align: center;">JAVA</p>
+						</div>
+						<pre class="iosample" style="display: table-cell; border: none;">Melody m1 = new Melody(120);
+m1.addNote(new Note(0, 2));
+m1.addNote(new Note(3, 4));
+m1.addNote(new Note(6, 6));
+System.out.println(m1);
+m1.setBPM(160);
+System.out.println(m1);</pre>
+					</div>
+				</div>
+			</div>
+			<div style="border: 1px dashed #2F6FAB; margin-top: 5px;">	
+				<div style="display: table; width: 100%; padding: 0px; height: 50px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); margin: 0px; text-align: center;">OUTPUT</p>
+						</div>
+						<pre class="iosample" style="display: table-cell; border: none;">do 2 fa 4 si 6
+6.0 seconds
+do 2 fa 4 si 6
+4.5 seconds</pre>
+					</div>
+				</div>
+			</div>
+			<div style="border: 1px dashed #2F6FAB; margin-top: 5px;">	
+				<div style="display: table; width: 100%; padding: 0px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; margin: 0px; text-align: center; font-weight: bold;">?</p>
+						</div>
+						<div class="ioinfo" style="display: table-cell; border: none; padding:3px; padding-left:8px; font-style: italic;">Überprüft die korrekte Basisimplementierung der Klasse Melody.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: table; width: 100%; margin-bottom: 15px;">
+	<div style="display:table-row;">
+		<div style="vertical-align: middle; text-align: center; width:52px; display: table-cell; border: 1px dashed #2F6FAB; background-color: #F9F9F9;">
+			<p style="margin: 0px; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); font-weight: bold; font-size: 90%;">spec.$3</p>
+		</div>
+		<div style="display: table-cell; padding-left:5px;">
+			<div style="border: 1px dashed #2F6FAB;">	
+				<div style="display: table; width: 100%; padding: 0px; height: 50px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); margin: 0px; text-align: center;">JAVA</p>
+						</div>
+						<pre class="iosample" style="display: table-cell; border: none;">Note n1 = new Note(1, 4);
+n1.transpose(2);
+System.out.println(n1);
+n1.transpose(-5);
+System.out.println(n1);
+
+Melody m1 = new Melody(120);
+m1.addNote(new Note(0, 2));
+m1.addNote(new Note(3, 4));
+m1.addNote(new Note(6, 6));
+m1.transpose(2);
+System.out.println(m1);</pre>
+					</div>
+				</div>
+			</div>
+			<div style="border: 1px dashed #2F6FAB; margin-top: 5px;">	
+				<div style="display: table; width: 100%; padding: 0px; height: 50px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); margin: 0px; text-align: center;">OUTPUT</p>
+						</div>
+						<pre class="iosample" style="display: table-cell; border: none;">fa 4
+la 4
+mi 2 la 4 re 6
+6.0 seconds</pre>
+					</div>
+				</div>
+			</div>
+			<div style="border: 1px dashed #2F6FAB; margin-top: 5px;">	
+				<div style="display: table; width: 100%; padding: 0px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; margin: 0px; text-align: center; font-weight: bold;">?</p>
+						</div>
+						<div class="ioinfo" style="display: table-cell; border: none; padding:3px; padding-left:8px; font-style: italic;">Überprüft die korrekte Umsetzung der Teilaufgabe 'transponieren'.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: table; width: 100%; margin-bottom: 15px;">
+	<div style="display:table-row;">
+		<div style="vertical-align: middle; text-align: center; width:52px; display: table-cell; border: 1px dashed #2F6FAB; background-color: #F9F9F9;">
+			<p style="margin: 0px; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); font-weight: bold; font-size: 90%;">spec.$4</p>
+		</div>
+		<div style="display: table-cell; padding-left:5px;">
+			<div style="border: 1px dashed #2F6FAB;">	
+				<div style="display: table; width: 100%; padding: 0px; height: 50px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); margin: 0px; text-align: center;">JAVA</p>
+						</div>
+						<pre class="iosample" style="display: table-cell; border: none;">Note n1 = new Note(3, 4);
+Note n2 = new Note(n1);
+System.out.println(n2);
+
+Melody m1 = new Melody(60);
+m1.addNote(new Note(0, 2));
+m1.addNote(new Note(3, 4));
+m1.addNote(new Note(1, 4));
+m1.addNote(new Note(2, 1));
+m1.addNote(new Note(5, 1));
+Melody m2 = m1.copy(2);
+System.out.println(m2);
+m1.transpose(1);
+System.out.println(m2);</pre>
+					</div>
+				</div>
+			</div>
+			<div style="border: 1px dashed #2F6FAB; margin-top: 5px;">	
+				<div style="display: table; width: 100%; padding: 0px; height: 50px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); margin: 0px; text-align: center;">OUTPUT</p>
+						</div>
+						<pre class="iosample" style="display: table-cell; border: none;">fa 4
+re 4 mi 1 la 1
+6.0 seconds
+re 4 mi 1 la 1
+6.0 seconds</pre>
+					</div>
+				</div>
+			</div>
+			<div style="border: 1px dashed #2F6FAB; margin-top: 5px;">	
+				<div style="display: table; width: 100%; padding: 0px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; margin: 0px; text-align: center; font-weight: bold;">?</p>
+						</div>
+						<div class="ioinfo" style="display: table-cell; border: none; padding:3px; padding-left:8px; font-style: italic;">Überprüft die korrekte Umsetzung der Teilaufgabe 'kopieren'.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="display: table; width: 100%; margin-bottom: 15px;">
+	<div style="display:table-row;">
+		<div style="vertical-align: middle; text-align: center; width:52px; display: table-cell; border: 1px dashed #2F6FAB; background-color: #F9F9F9;">
+			<p style="margin: 0px; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); font-weight: bold; font-size: 90%;">spec.$5</p>
+		</div>
+		<div style="display: table-cell; padding-left:5px;">
+			<div style="border: 1px dashed #2F6FAB;">	
+				<div style="display: table; width: 100%; padding: 0px; height: 50px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); margin: 0px; text-align: center;">JAVA</p>
+						</div>
+						<pre class="iosample" style="display: table-cell; border: none;">Melody m1 = new Melody(60);
+m1.addNote(new Note(0, 2));
+m1.addNote(new Note(3, 4));
+SongBook sb1 = new SongBook();
+System.out.println(sb1.addMelody("Testtitel", m1));
+System.out.println(sb1.addMelody("Another Song", new Melody(1)));
+Melody m2 = sb1.getMelody("Testtitel");
+System.out.println(m1 == m2);
+System.out.println(sb1.addMelody("Testtitel", new Melody(2)));
+Melody m3 = sb1.getMelody("Testtitel");
+System.out.println(m1 == m3);</pre>
+					</div>
+				</div>
+			</div>
+			<div style="border: 1px dashed #2F6FAB; margin-top: 5px;">	
+				<div style="display: table; width: 100%; padding: 0px; height: 50px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); margin: 0px; text-align: center;">OUTPUT</p>
+						</div>
+						<pre class="iosample" style="display: table-cell; border: none;">true
+true
+true
+false
+true</pre>
+					</div>
+				</div>
+			</div>
+			<div style="border: 1px dashed #2F6FAB; margin-top: 5px;">	
+				<div style="display: table; width: 100%; padding: 0px;">
+					<div style="display: table-row;">
+						<div style="background-color: #E9E9E9; display: table-cell; vertical-align: middle; width: 44px;">
+							<p class="iodescription" style="font-size: 80%; margin: 0px; text-align: center; font-weight: bold;">?</p>
+						</div>
+						<div class="ioinfo" style="display: table-cell; border: none; padding:3px; padding-left:8px; font-style: italic;">Überprüft die korrekte Implementierung des Songbooks.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- END INSERT -->
+				
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
+
+	
+</body>
+</html>
