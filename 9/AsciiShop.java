@@ -78,7 +78,14 @@ public class AsciiShop
 
 		String cmd = scanner.next();
 		
-		if (createCmd.equals(cmd))
+		if ((operation = factories.get(cmd).create(scanner)) != null)
+		{
+			if (img == null) throw new InputMismatchException();
+			
+			asciiStack.push(img);					
+			img = operation.execute(img);
+		}	
+		else if (createCmd.equals(cmd))
 		{
 			if (img != null) 
 				throw new UnknownCommandException();
@@ -101,17 +108,7 @@ public class AsciiShop
 				throw new InputMismatchException();
 			
 			img = new ClearOperation().execute(new AsciiImage(width, height, charset));
-		
-		
 		}
-		else if (binaryCmd.equals(cmd))
-			operation = factories.get(binaryCmd).create(scanner);
-		else if (straightenCmd.equals(cmd))
-			operation = factories.get(straightenCmd).create(scanner);
-		else if (growCmd.equals(cmd))
-			operation = factories.get(growCmd).create(scanner);
-		else if (filterCmd.equals(cmd))
-			operation = factories.get(filterCmd).create(scanner);
 		else if (undoCmd.equals(cmd))
 		{
 			if (asciiStack.empty())
@@ -119,34 +116,12 @@ public class AsciiShop
 			else
 				img = asciiStack.pop();
 		}
-		else if (loadCmd.equals(cmd))
-		{
-			if (img == null) throw new InputMismatchException();
-
-			operation = factories.get(loadCmd).create(scanner);
-		}
 		else if (printCmd.equals(cmd))
 			System.out.println(img.toString());
-		else if (clearCmd.equals(cmd))
-			operation = factories.get(clearCmd).create(scanner); 
-		else if (transposeCmd.equals(cmd))
-			operation = factories.get(transposeCmd).create(scanner);
-		else if (replaceCmd.equals(cmd))
-			operation = factories.get(replaceCmd).create(scanner);	
-		else if (lineCmd.equals(cmd))
-			operation = factories.get(lineCmd).create(scanner);
-		else if (fillCmd.equals(cmd))
-			operation = factories.get(fillCmd).create(scanner);
 		else if (histogramCmd.equals(cmd))
 			System.out.println(Histogram.getHistogram(img).toString()); 
 		else
 			throw new UnknownCommandException();
-	
-		if (operation != null)
-		{
-			asciiStack.push(img);					
-			img = operation.execute(img);
-		}
 	}
 }
 
